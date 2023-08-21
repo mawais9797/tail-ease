@@ -93,7 +93,7 @@ const LoginPage = () => {
     >
       <Card sx={{ zIndex: 1, overflowX: "hidden" }}>
         <CardContent
-          sx={{ padding: (theme) => `${theme.spacing(12, 9, 7)} !important` }}
+          sx={{ padding: (theme) => `${theme.spacing(4, 9, 5)} !important` }}
         >
           <Box
             sx={{
