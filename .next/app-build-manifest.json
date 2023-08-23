@@ -12,25 +12,10 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/sidebar/login/page": [
+    "/sidebar/tables/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/sidebar/login/page.js"
-    ],
-    "/sidebar/register/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/sidebar/register/page.js"
-    ],
-    "/sidebar/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/sidebar/dashboard/page.js"
-    ],
-    "/sidebar/account-settings/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/sidebar/account-settings/page.js"
+      "static/chunks/app/sidebar/tables/page.js"
     ]
   }
 }

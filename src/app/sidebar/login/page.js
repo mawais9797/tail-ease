@@ -39,6 +39,7 @@ import BlankLayout from "../../@core/layouts/BlankLayout";
 
 // ** Demo Imports
 import FooterIllustrationsV1 from "../../views/pages/auth/FooterIllustration";
+import axios from "axios";
 
 // ** Styled Components
 
@@ -65,7 +66,8 @@ const LoginPage = () => {
     password: "",
     showPassword: false,
   });
-
+  const [email, setEmail] = useState("");
+  const [userNumber, setUserNumber] = useState("");
   // ** Hook
   const theme = useTheme();
   const router = useRouter();
@@ -74,12 +76,30 @@ const LoginPage = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  const userNumberChange = (event) => {
+    setUserNumber(event.target.value);
+  };
+
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    alert(userNumber);
+    const userData = {
+      phoneNo: userNumber,
+      password: values.password,
+    };
+    const response = await axios.post(
+      "http://192.168.1.215:5000/user/login",
+      userData
+    );
+    console.log("Login Response= ", response);
   };
 
   return (
@@ -93,7 +113,7 @@ const LoginPage = () => {
     >
       <Card sx={{ zIndex: 1, overflowX: "hidden" }}>
         <CardContent
-          sx={{ padding: (theme) => `${theme.spacing(7, 9, 5)} !important` }}
+          sx={{ padding: (theme) => `${theme.spacing(4, 9, 5)} !important` }}
         >
           <Box
             sx={{
@@ -187,16 +207,16 @@ const LoginPage = () => {
               Please sign-in to your account. Pets Deserve The Best
             </Typography>
           </Box>
-          <form
-            noValidate
-            autoComplete="off"
-            onSubmit={(e) => e.preventDefault()}
-          >
+          <form noValidate autoComplete="off" onSubmit={handleSubmit}>
             <TextField
               autoFocus
               fullWidth
-              id="email"
-              label="Email"
+              id="PhoneNo"
+              type="text"
+              name="user"
+              value={userNumber}
+              onChange={userNumberChange}
+              label="PhoneNo"
               sx={{ marginBottom: 4 }}
             />
             <FormControl fullWidth>
@@ -239,10 +259,10 @@ const LoginPage = () => {
             </Box>
             <Button
               fullWidth
+              type="submit"
               size="large"
               variant="contained"
               sx={{ marginBottom: 7 }}
-              onClick={() => router.push("/")}
             >
               Login
             </Button>
@@ -258,7 +278,7 @@ const LoginPage = () => {
                 New on our platform?
               </Typography>
               <Typography variant="body2">
-                <Link passHref href="/sidebar/register">
+                <Link passHref href="/pages/register">
                   <LinkStyled>Create an account</LinkStyled>
                 </Link>
               </Typography>

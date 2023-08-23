@@ -1,4 +1,4 @@
-// File: D:\Dashboard-Pet-App\tail-ease\frontend\src\app\layout.js
+// File: C:\Users\AG-M080\Desktop\Next.js\pets-project\tail-ease\src\app\layout.js
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
