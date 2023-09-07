@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import colors from "colors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-import { RegisterUser, userLogin } from "./controllers/UserRegistration.js";
+import { RegisterUser, userLogin } from "./controllers/UserController.js";
 
 const app = express();
 const PORT = 5001;
