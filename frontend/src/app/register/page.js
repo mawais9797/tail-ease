@@ -46,7 +46,7 @@ const Register = () => {
       };
       console.log("userData= ", userData);
       const response = await axios.post(
-        "http://localhost:5001/user/registration",
+        "http://192.168.1.215:5000/user/registration",
         userData
       );
       console.log("response", response);

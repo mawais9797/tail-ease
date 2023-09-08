@@ -43,12 +43,45 @@ const Map = () => {
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
+    navigator.geolocation.watchPosition(success, error);
+
+    let marker, circle, zoomed;
+    function success(pos) {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      const accuracy = pos.coords.accuracy;
+      console.log("lat: ", lat);
+      console.log("lng: ", lng);
+      console.log("accuracy: ", accuracy);
+
+      if (marker) {
+        map.removeLayer(marker);
+        map.removeLayer(circle);
+      }
+      marker = L.marker([lat, lng]).addTo(map);
+      circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+      if (!zoomed) {
+        zoomed = map.fitBounds(circle.getBounds());
+      }
+
+      map.setView([lat, lng]);
+    }
+
+    function error(err) {
+      if (err.code === 1) {
+        alert("please allow location");
+      } else {
+        // alert("Cannot get your location");
+      }
+    }
+
     // Iterate through the locations and create markers for each one
-    locations.forEach((location) => {
-      L.marker([location.latitude, location.longitude], {
-        icon: customIcon,
-      }).addTo(map);
-    });
+    // locations.forEach((location) => {
+    //   L.marker([location.latitude, location.longitude], {
+    //     icon: customIcon,
+    //   }).addTo(map);
+    // });
   }, [locations]);
 
   return (

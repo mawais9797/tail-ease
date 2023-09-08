@@ -7,6 +7,8 @@ import projectReducer from "./redux/reducers/projectReducer";
 // store main reducers sy pass hony wala data save krna
 const rootReducer = combineReducers({
   animalsData: projectReducer,
+  vetDoctors: projectReducer,
+  allClinics: projectReducer,
 });
 
 const store = createStore(

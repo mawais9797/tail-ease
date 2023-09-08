@@ -50,7 +50,7 @@ const Login = () => {
       console.log("userdata=", userData);
 
       const response = await axios.post(
-        "http://localhost:5001/user/login",
+        "http://192.168.1.215:5000/user/login",
         {
           phoneNo,
           password,
@@ -59,7 +59,7 @@ const Login = () => {
       );
       console.log("response", response);
       if (response.status === 200) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data.user));
       }
       router.push("/scenes/dashboard");
     } catch (error) {

@@ -1,6 +1,6 @@
 "use client";
-import { Box, IconButton, useTheme } from "@mui/material";
-import { useContext } from "react";
+import { Box, IconButton, useTheme, Menu, MenuItem } from "@mui/material";
+import { useContext, useState } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -12,6 +12,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useRouter } from "next/navigation";
 
 const Topbar = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+    console.log("event: ", anchorEl);
+  };
+
+  const handleCloseMenu = () => {
+    console.log("eventClose: ", anchorEl);
+    setAnchorEl(null);
+  };
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -21,6 +33,11 @@ const Topbar = () => {
     e.preventDefault();
     localStorage.removeItem("user");
     router.push("/");
+  };
+
+  const handleChangePassword = () => {
+    console.log("Change your password");
+    router.push("/scenes/changepassword");
   };
 
   return (
@@ -52,9 +69,25 @@ const Topbar = () => {
         <IconButton>
           <SettingsOutlinedIcon />
         </IconButton>
-        <IconButton onClick={handleLogOut}>
+        <IconButton onClick={handleOpenMenu}>
           <PersonOutlinedIcon />
         </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleCloseMenu}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+        >
+          <MenuItem onClick={handleChangePassword}>Change Password</MenuItem>
+          <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+        </Menu>
       </Box>
     </Box>
   );

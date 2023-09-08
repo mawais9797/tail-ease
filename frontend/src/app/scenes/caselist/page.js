@@ -1,6 +1,16 @@
 "use client";
 import { useEffect } from "react";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Table,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -35,7 +45,7 @@ const Invoices = () => {
     };
     try {
       const { data } = await axios.delete(
-        `http://192.168.1.215:5000/woundedAnimals/${user.id}`,
+        `http://192.168.1.215:5000/woundedAnimals/adminDelete/${user.id}`,
         {
           data: {
             postId: postID,
@@ -98,7 +108,7 @@ const Invoices = () => {
       renderCell: (params) => (
         <Button
           variant="outlined"
-          sx={{ borderColor: "green" }}
+          sx={{ backgroundColor: colors.blueAccent[400] }}
           onClick={() => handleDelete(params.row._id)}
         >
           delete
@@ -109,6 +119,21 @@ const Invoices = () => {
   const getRowId = (row) => row._id;
 
   return (
+    // <TableContainer>
+    //   <Table sx={{ minWidth: 450 }} aria-label="Data Table">
+    //     <TableHead>
+    //       <TableRow>
+    //         <TableCell>ID</TableCell>
+    //         <TableCell>Name</TableCell>
+    //         <TableCell>officeHours</TableCell>
+    //         <TableCell>address</TableCell>
+    //         <TableCell>city</TableCell>
+    //         <TableCell>phoneNo</TableCell>
+    //         <TableCell>speciality</TableCell>
+    //       </TableRow>
+    //     </TableHead>
+    //   </Table>
+    // </TableContainer>
     <Box m="20px">
       <Header title="WoundedAnimals" subtitle="List of Rescued Animals" />
       <Box
@@ -120,6 +145,7 @@ const Invoices = () => {
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
+            color: colors.grey[100],
           },
           "& .name-column--cell": {
             color: colors.greenAccent[300],
@@ -137,6 +163,13 @@ const Invoices = () => {
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
+          },
+          // Responsive styles
+          [theme.breakpoints.down("sm")]: {
+            height: "50vh", // Adjust the height for smaller screens
+          },
+          [theme.breakpoints.down("xs")]: {
+            height: "30vh", // Adjust the height for even smaller screens
           },
         }}
       >
