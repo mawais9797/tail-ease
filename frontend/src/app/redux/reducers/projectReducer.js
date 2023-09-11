@@ -3,6 +3,7 @@ const initialState = {
   animalsData: {},
   vetDoctors: [],
   allClinics: [],
+  selectedClinic: null,
 };
 
 const projectReducer = (state = initialState, action) => {
@@ -14,6 +15,8 @@ const projectReducer = (state = initialState, action) => {
       return { vetDoctors: action.payload };
     case "ALL_CLINICS_DATA":
       return { allClinics: action.payload };
+    case "SELECTED_CLINIC_BY_USER":
+      return { selectedClinic: action.payload };
     default:
       return state;
   }

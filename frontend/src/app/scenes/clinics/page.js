@@ -21,22 +21,34 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { vetDoctors, clinics } from "../../redux/actions/projectActions";
+import { clinics, selectedClinicID } from "../../redux/actions/projectActions";
+import { useRouter } from "next/navigation";
 
 const Clinics = () => {
   debugger;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const clincisData = useSelector((state) => state.allClinics);
-  console.log("doctorsData: ", clincisData);
-  const allClinicsData = clincisData;
+  console.log("ClinicsData: ", clincisData.allClinics);
+  const allClinicsData = clincisData.allClinics ? clincisData.allClinics : [];
   useEffect(() => {
     dispatch(clinics());
   }, []);
 
   let counter = 0;
+
+  const handleSelectClinic = (clinicID) => {
+    console.log("ClinicID: ", clinicID);
+    dispatch(selectedClinicID(clinicID));
+    router.push("/scenes/map");
+  };
+
+  const handleAddClinic = () => {
+    router.push("/scenes/clinicsadd");
+  };
 
   return (
     <>
@@ -60,11 +72,12 @@ const Clinics = () => {
               backgroundColor: "rgb(73 136 199 / 79%)",
             },
           }}
+          onClick={handleAddClinic}
         >
-          Add Doctor
+          Add Clinic
         </Button>
       </div>
-      <TableContainer>
+      <TableContainer sx={{ width: "1060px", marginLeft: "20px" }}>
         <Table>
           <TableHead sx={{ backgroundColor: colors.blueAccent[700] }}>
             <TableRow>
@@ -73,6 +86,7 @@ const Clinics = () => {
               <TableCell align="right">phoneNo</TableCell>
               <TableCell align="right">latitude</TableCell>
               <TableCell align="right">longitude</TableCell>
+              <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -84,8 +98,22 @@ const Clinics = () => {
                 >
                   <TableCell align="right">{index + 1}</TableCell>
                   <TableCell align="right">{doc.clinicName}</TableCell>
-                  <TableCell align="right">{doc.coordinates[0]}</TableCell>
-                  <TableCell align="right">{doc.coordinates[1]}</TableCell>
+                  <TableCell align="right">{doc.phoneNo}</TableCell>
+                  <TableCell align="right">{doc.latitude}</TableCell>
+                  <TableCell align="right">{doc.longitude}</TableCell>
+                  <TableCell align="right">
+                    <Button
+                      sx={{
+                        backgroundColor: colors.blueAccent[500],
+                        "&:hover": {
+                          backgroundColor: colors.blueAccent[300],
+                        },
+                      }}
+                      onClick={(e) => handleSelectClinic(doc._id)}
+                    >
+                      View
+                    </Button>
+                  </TableCell>
                 </TableRow>
               );
             })}
@@ -97,124 +125,3 @@ const Clinics = () => {
 };
 
 export default Clinics;
-
-// "use client";
-
-// import { Box } from "@mui/material";
-// import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-// import { tokens } from "../../theme";
-// import { mockDataContacts } from "../../data/mockData";
-// import Header from "../../components/Header";
-// import { useTheme } from "@mui/material";
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-
-// const Contacts = () => {
-//   const theme = useTheme();
-//   const colors = tokens(theme.palette.mode);
-//   const [data, setData] = useState([]);
-
-//   const ApiData = async () => {
-//     try {
-//       const response = await axios.get(
-//         "http://192.168.1.215:5000/VetClinic/all"
-//       );
-//       console.log("Animals= ", response.data);
-//       setData(response.data.getWoundedAnimals);
-//     } catch (error) {
-//       console.log("API ERROR= ", error);
-//     }
-//   };
-//   useEffect(() => {
-//     ApiData();
-//   }, []);
-//   const columns = [
-//     { field: "id", headerName: "ID", flex: 0.5 },
-//     { field: "_id", headerName: " ID" },
-//     {
-//       field: "name",
-//       headerName: "Name",
-//       flex: 1,
-//       cellClassName: "name-column--cell",
-//     },
-//     {
-//       field: "age",
-//       headerName: "Age",
-//       type: "number",
-//       headerAlign: "left",
-//       align: "left",
-//     },
-//     {
-//       field: "phone",
-//       headerName: "Phone Number",
-//       flex: 1,
-//     },
-//     {
-//       field: "email",
-//       headerName: "Email",
-//       flex: 1,
-//     },
-//     {
-//       field: "address",
-//       headerName: "Address",
-//       flex: 1,
-//     },
-//     {
-//       field: "city",
-//       headerName: "City",
-//       flex: 1,
-//     },
-//     {
-//       field: "zipCode",
-//       headerName: "Zip Code",
-//       flex: 1,
-//     },
-//   ];
-
-//   return (
-//     <Box m="20px">
-//       <Header title="CLINICS" subtitle="List of CLINICS " />
-//       <Box
-//         m="40px 0 0 0"
-//         height="75vh"
-//         sx={{
-//           "& .MuiDataGrid-root": {
-//             border: "none",
-//           },
-//           "& .MuiDataGrid-cell": {
-//             borderBottom: "none",
-//             color: colors.grey[100],
-//           },
-//           "& .name-column--cell": {
-//             color: colors.greenAccent[600],
-//           },
-//           "& .MuiDataGrid-columnHeaders": {
-//             backgroundColor: colors.blueAccent[700],
-//             borderBottom: "none",
-//           },
-//           "& .MuiDataGrid-virtualScroller": {
-//             backgroundColor: colors.primary[400],
-//           },
-//           "& .MuiDataGrid-footerContainer": {
-//             borderTop: "none",
-//             backgroundColor: colors.blueAccent[700],
-//           },
-//           "& .MuiCheckbox-root": {
-//             color: `${colors.greenAccent[200]} !important`,
-//           },
-//           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-//             color: `${colors.grey[100]} !important`,
-//           },
-//         }}
-//       >
-//         <DataGrid
-//           rows={mockDataContacts}
-//           columns={columns}
-//           components={{ Toolbar: GridToolbar }}
-//         />
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default Contacts;
