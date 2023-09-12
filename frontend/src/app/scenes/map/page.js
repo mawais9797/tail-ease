@@ -10,12 +10,6 @@ const customIcon = L.icon({
   iconAnchor: [16, 32],
 });
 
-const sampleData = [
-  { id: 1, lat: 51.502, lng: -0.09 },
-  { id: 2, lat: 51.505, lng: -0.08 },
-  { id: 3, lat: 51.508, lng: -0.07 },
-];
-
 const Map = () => {
   const [locations, setLocations] = useState([]);
   const animals = useSelector((state) => state.animalsData.animalsData);
@@ -27,6 +21,7 @@ const Map = () => {
   // const abc = JSON.parse(localStorage.getItem("SELECTED_CLINIC_BY_USER"));
   // console.log("ABC=", abc);
   // console.log("selectedClinicByUser", selectedClinicByUser);
+
   var selectedClinicByUser = null;
   useEffect(() => {
     console.log("useEffect 1");
@@ -79,7 +74,7 @@ const Map = () => {
     // Create the map inside the useEffect hook
     var map = L.map("map", {
       scrollWheelZoom: true,
-    }).setView([33.526, 74.453], 13);
+    }).setView([33.526, 74.453], 6);
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,

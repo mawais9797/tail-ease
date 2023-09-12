@@ -15,7 +15,7 @@ const MapAdd = ({ onLatLngUpdate }) => {
     console.log("map: ");
     var map = L.map("map", {
       scrollWheelZoom: true,
-    }).setView([33.526, 74.453], 13);
+    }).setView([29.973, 70.0048], 5);
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
