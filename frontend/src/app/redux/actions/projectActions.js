@@ -10,6 +10,8 @@ export const animalDataAction = () => async (dispatch) => {
   console.log("Animals= ", data);
   const animalData = data.woundedAnimals;
 
+  localStorage.setItem("allAnimalsCases", JSON.stringify(animalData));
+
   dispatch({
     type: "ADD_ANIMAL_DATA",
     payload: animalData,
@@ -30,9 +32,11 @@ export const vetDoctors = () => async (dispatch) => {
 };
 
 export const clinics = () => async (dispatch) => {
-  debugger;
+  // debugger;
   const { data } = await axios.get("http://192.168.1.215:5000/VetClinic/all");
   console.log("All Clinics: ", data);
+
+  localStorage.setItem("allClinics", JSON.stringify(data.getClinics));
 
   dispatch({
     type: "ALL_CLINICS_DATA",

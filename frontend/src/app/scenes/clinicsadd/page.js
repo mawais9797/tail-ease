@@ -38,10 +38,11 @@ const ClinicAddition = () => {
   const [value, setValue] = useState();
   const [OpenTimeMonday, setOpenTimeMonday] = useState(null);
   const [ClosetimeMonday, setClosetimeMonday] = useState(null);
+  const [ClinicTimingData, setClinicTimingData] = useState(null);
 
-  const handleTimeSet = (openTiming, closeTiming) => {
-    setOpenTimeMonday(openTiming);
-    setClosetimeMonday(closeTiming);
+  const handleTimeSet = (timingDataClinic) => {
+    console.log("handleTimeSet Called in ClinicAdd: ", timingDataClinic);
+    setClinicTimingData(timingDataClinic);
   };
 
   const router = useRouter();
@@ -82,11 +83,14 @@ const ClinicAddition = () => {
       e.preventDefault();
 
       const userData = {
-        userId: user.id,
-        currentPassword: ClinicName,
-        PhoneNo: Longitude,
+        clinicName: ClinicName,
+        phoneNo: PhoneNo,
+        longitude: Longitude,
+        latitude: Latitude,
+        timings: ClinicTimingData,
       };
-      if (PhoneNo === Longitude) {
+      console.log("Clinic Data: ", userData);
+      if (2 === 2) {
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -95,11 +99,13 @@ const ClinicAddition = () => {
         console.log("userdata=", userData);
 
         const response = await axios.post(
-          "http://192.168.1.215:5000/user/changePassword",
+          "http://192.168.1.215:5000/VetClinic/create",
           {
-            userId: user.id,
-            currentPassword: ClinicName,
-            PhoneNo: Longitude,
+            clinicName: ClinicName,
+            phoneNo: PhoneNo,
+            longitude: Longitude,
+            latitude: Latitude,
+            timings: ClinicTimingData,
           },
           config
         );

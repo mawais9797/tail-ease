@@ -2,6 +2,8 @@
 import {
   Box,
   Button,
+  List,
+  ListItem,
   Table,
   TableBody,
   TableCell,
@@ -25,7 +27,7 @@ import { clinics, selectedClinicID } from "../../redux/actions/projectActions";
 import { useRouter } from "next/navigation";
 
 const Clinics = () => {
-  debugger;
+  // debugger;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
@@ -84,8 +86,8 @@ const Clinics = () => {
               <TableCell align="right">ID</TableCell>
               <TableCell align="right">clinicName</TableCell>
               <TableCell align="right">phoneNo</TableCell>
-              <TableCell align="right">latitude</TableCell>
-              <TableCell align="right">longitude</TableCell>
+              <TableCell align="right">Timings</TableCell>
+
               <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -99,8 +101,20 @@ const Clinics = () => {
                   <TableCell align="right">{index + 1}</TableCell>
                   <TableCell align="right">{doc.clinicName}</TableCell>
                   <TableCell align="right">{doc.phoneNo}</TableCell>
-                  <TableCell align="right">{doc.latitude}</TableCell>
-                  <TableCell align="right">{doc.longitude}</TableCell>
+                  <TableCell align="right">
+                    {Object.values(doc.timings)?.map((time) => {
+                      return (
+                        <>
+                          <List>
+                            <ListItem>
+                              {time.open} - {time.close}
+                            </ListItem>
+                          </List>
+                        </>
+                      );
+                    })}
+                  </TableCell>
+
                   <TableCell align="right">
                     <Button
                       sx={{
