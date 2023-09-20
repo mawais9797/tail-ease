@@ -156,7 +156,7 @@ const ClinicAddition = () => {
             boxShadow: "2px 4px 9px -1px",
           }}
         >
-          <h2 style={{ marginLeft: "35px" }}>Clinic Addition Form</h2>
+          <h2 style={{ marginLeft: "35px" }}>Clinic Registeration Form</h2>
           <br />
           {/* <form onSubmit={handleSubmitABC}> */}
           <TextField

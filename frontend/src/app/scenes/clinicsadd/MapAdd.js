@@ -7,10 +7,10 @@ const MapAdd = ({ onLatLngUpdate }) => {
   const [newLat, setNewLat] = useState("");
   const [newLng, setNewLng] = useState("");
 
-  const handleUpdate = () => {
-    // Call the function passed from the parent component
-    // onLatLngUpdate(newLat, newLng);
-  };
+  // const handleUpdate = () => {
+  //   // Call the function passed from the parent component
+  //   // onLatLngUpdate(newLat, newLng);
+  // };
   useEffect(() => {
     console.log("map: ");
     var map = L.map("map", {
@@ -38,7 +38,7 @@ const MapAdd = ({ onLatLngUpdate }) => {
 
       console.log("latUPDATE: ", newLat);
       console.log("llngUPDATE: ", newLng);
-      handleUpdate();
+      // handleUpdate();
 
       //   onLatLngUpdate(newLat, newLng);
     });

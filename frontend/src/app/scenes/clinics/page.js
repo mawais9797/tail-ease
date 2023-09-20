@@ -83,12 +83,22 @@ const Clinics = () => {
         <Table>
           <TableHead sx={{ backgroundColor: colors.blueAccent[700] }}>
             <TableRow>
-              <TableCell align="right">ID</TableCell>
-              <TableCell align="right">clinicName</TableCell>
-              <TableCell align="right">phoneNo</TableCell>
-              <TableCell align="right">Timings</TableCell>
+              <TableCell align="center" style={{ color: colors.grey[100] }}>
+                ID
+              </TableCell>
+              <TableCell align="center" style={{ color: colors.grey[100] }}>
+                clinicName
+              </TableCell>
+              <TableCell align="center" style={{ color: colors.grey[100] }}>
+                phoneNo
+              </TableCell>
+              <TableCell align="center" style={{ color: colors.grey[100] }}>
+                Timings
+              </TableCell>
 
-              <TableCell align="right">Action</TableCell>
+              <TableCell align="center" style={{ color: colors.grey[100] }}>
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -98,21 +108,65 @@ const Clinics = () => {
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="right">{index + 1}</TableCell>
-                  <TableCell align="right">{doc.clinicName}</TableCell>
-                  <TableCell align="right">{doc.phoneNo}</TableCell>
-                  <TableCell align="right">
-                    {Object.values(doc.timings)?.map((time) => {
-                      return (
-                        <>
-                          <List>
-                            <ListItem>
-                              {time.open} - {time.close}
-                            </ListItem>
-                          </List>
-                        </>
-                      );
-                    })}
+                  <TableCell align="center">{index + 1}</TableCell>
+                  <TableCell align="center">{doc.clinicName}</TableCell>
+                  <TableCell align="center">{doc.phoneNo}</TableCell>
+                  <TableCell align="center">
+                    <table align="center">
+                      <thead>
+                        <tr>
+                          <th style={{ paddingRight: "60px" }}>Day</th>
+                          <th style={{ paddingRight: "40px" }}>Open</th>
+                          <th style={{ paddingRight: "20px" }}>Close</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.values(doc.timings).map((time) => {
+                          return (
+                            <>
+                              {time.disabled === true ? (
+                                <>
+                                  <tr>
+                                    <td style={{ paddingRight: "50px" }}>
+                                      {time.day}
+                                    </td>
+                                    <td
+                                      style={{
+                                        paddingRight: "40px",
+                                        color: "red",
+                                      }}
+                                    >
+                                      CLOSED
+                                    </td>
+                                    <td
+                                      style={{
+                                        paddingRight: "20px",
+                                        color: "red",
+                                      }}
+                                    >
+                                      CLOSED
+                                    </td>
+                                  </tr>
+                                </>
+                              ) : (
+                                <>
+                                  <tr>
+                                    <td style={{ paddingRight: "50px" }}>
+                                      {time.day}
+                                    </td>
+                                    <td style={{ paddingRight: "20px" }}>
+                                      {time.open}
+                                    </td>
+                                    <td>{time.close}</td>
+                                  </tr>
+                                </>
+                              )}
+                            </>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                    {/* internal Table Close */}
                   </TableCell>
 
                   <TableCell align="right">

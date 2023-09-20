@@ -22,12 +22,19 @@ import Header from "../../components/Header";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { vetDoctors } from "../../redux/actions/projectActions";
+import { useRouter } from "next/navigation";
 
 const Team = () => {
   debugger;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleClick = () => {
+    console.log("here");
+    router.push("/scenes/doctorsadd");
+  };
 
   const doctorsData = useSelector((state) => state.vetDoctors);
   console.log("doctorsData: ", doctorsData.vetDoctors);
@@ -60,6 +67,7 @@ const Team = () => {
               backgroundColor: "rgb(73 136 199 / 79%)",
             },
           }}
+          onClick={handleClick}
         >
           Add Doctor
         </Button>
@@ -68,13 +76,13 @@ const Team = () => {
         <Table>
           <TableHead sx={{ backgroundColor: colors.blueAccent[700] }}>
             <TableRow>
-              <TableCell align="right">ID</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">officeHours</TableCell>
-              <TableCell align="right">address</TableCell>
-              <TableCell align="right">city</TableCell>
-              <TableCell align="right">phoneNo</TableCell>
-              <TableCell align="right">speciality</TableCell>
+              <TableCell align="center">ID</TableCell>
+              <TableCell align="center">Name</TableCell>
+              <TableCell align="center">address</TableCell>
+              <TableCell align="center">city</TableCell>
+              <TableCell align="center">phoneNo</TableCell>
+              <TableCell align="center">speciality</TableCell>
+              <TableCell align="center">officeHours</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -86,11 +94,66 @@ const Team = () => {
                 >
                   <TableCell align="right">{index + 1}</TableCell>
                   <TableCell align="right">{doc.name}</TableCell>
-                  <TableCell align="right">{doc.officeHours}</TableCell>
                   <TableCell align="right">{doc.address}</TableCell>
                   <TableCell align="right">{doc.city}</TableCell>
                   <TableCell align="right">{doc.phoneNo}</TableCell>
                   <TableCell align="right">{doc.speciality}</TableCell>
+                  <TableCell align="right">
+                    <table align="center">
+                      <thead>
+                        <tr>
+                          <th style={{ paddingRight: "60px" }}>Day</th>
+                          <th style={{ paddingRight: "40px" }}>Open</th>
+                          <th style={{ paddingRight: "20px" }}>Close</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.values(doc.officeHours)?.map((time) => {
+                          return (
+                            <>
+                              {time.disabled === true ? (
+                                <>
+                                  <tr>
+                                    <td style={{ paddingRight: "50px" }}>
+                                      {time.day}
+                                    </td>
+                                    <td
+                                      style={{
+                                        paddingRight: "40px",
+                                        color: "red",
+                                      }}
+                                    >
+                                      CLOSED
+                                    </td>
+                                    <td
+                                      style={{
+                                        paddingRight: "20px",
+                                        color: "red",
+                                      }}
+                                    >
+                                      CLOSED
+                                    </td>
+                                  </tr>
+                                </>
+                              ) : (
+                                <>
+                                  <tr>
+                                    <td style={{ paddingRight: "50px" }}>
+                                      {time.day}
+                                    </td>
+                                    <td style={{ paddingRight: "20px" }}>
+                                      {time.open}
+                                    </td>
+                                    <td>{time.close}</td>
+                                  </tr>
+                                </>
+                              )}
+                            </>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </TableCell>
                 </TableRow>
               );
             })}
