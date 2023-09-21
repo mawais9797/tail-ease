@@ -44,13 +44,13 @@ export const clinics = () => async (dispatch) => {
   });
 };
 
-export const selectedClinicID = (clinicID) => async (dispatch) => {
-  debugger;
+export const selectedClinicID = (clinicID, router) => async (dispatch) => {
+  // debugger;
 
   const { data } = await axios.get("http://192.168.1.215:5000/VetClinic/all");
-  console.log("All Clinics: ", data.getClinics);
+  // console.log("All Clinics: ", data.getClinics);
   const selectedClinic = data.getClinics.filter((id) => id._id === clinicID);
-  console.log("SElected Clinic: ", selectedClinic[0]);
+  // console.log("SElected Clinic: ", selectedClinic[0]);
 
   localStorage.setItem(
     "SELECTED_CLINIC_BY_USER",
@@ -61,4 +61,5 @@ export const selectedClinicID = (clinicID) => async (dispatch) => {
     type: "SELECTED_CLINIC_BY_USER",
     payload: selectedClinic,
   });
+  router.push("/scenes/map/clinicmap");
 };

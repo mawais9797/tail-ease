@@ -13,10 +13,19 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { animalDataAction, clinics } from "@/app/redux/actions/projectActions";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(animalDataAction());
+    dispatch(clinics());
+  }, []);
 
   return (
     <Box m="20px">

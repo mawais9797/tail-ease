@@ -17,6 +17,7 @@ import Header from "../../components/Header";
 import { animalDataAction } from "../../redux/actions/projectActions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Invoices = () => {
   // debugger;
@@ -26,7 +27,7 @@ const Invoices = () => {
   const dispatch = useDispatch();
   const animals = useSelector((state) => state.animalsData);
   console.log("animalDataaaa= ", animals);
-
+  const router = useRouter();
   const woundedAnimals = animals.animalsData;
 
   console.log("Wounded", woundedAnimals);

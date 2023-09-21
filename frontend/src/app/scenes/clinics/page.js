@@ -44,8 +44,8 @@ const Clinics = () => {
 
   const handleSelectClinic = (clinicID) => {
     console.log("ClinicID: ", clinicID);
-    dispatch(selectedClinicID(clinicID));
-    router.push("/scenes/map");
+    dispatch(selectedClinicID(clinicID, router));
+    // router.push("/scenes/map/clinicmap");
   };
 
   const handleAddClinic = () => {
